@@ -33,10 +33,24 @@ import { ServerSentEventGenerator } from 'datastar-ssegen';
 const app = express();
 app.use(express.json());
 
-// Define event handlers here
-
-app.get('/messages', handleMessages);
-app.get('/clock', handleClock);
+app.get('/qoute', (req,res)=> {
+const sse = ServerSentEventGenerator.init(req, res);
+  const qoutes = [
+    "Any app that can be written in JavaScript, will eventually be written in JavaScript. - Jeff Atwood",
+    "JavaScript is the world's most misunderstood programming language. - Douglas Crockford",
+    "The strength of JavaScript is that you can do anything. The weakness is that you will. - Reg Braithwaite",
+  ];
+  const randomQuote = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  await sse.MergeFragments(`<div id="quote">${randomQuote(qoutes)}</div>`);
+  await sse.MergeSignals({ lastUpdate: Date.now() });
+  res.end();
+});
+app.get('/clock', (req, res)=> {
+  const sse = ServerSentEventGenerator.init(req, res);
+  setInterval(async () => {
+    await sse.MergeFragments(`<div id="clock">Current Time: ${new Date()}</div>`);
+  }, 1000);
+});
 
 const PORT = 3101;
 app.listen(PORT, () => {
@@ -60,8 +74,8 @@ Here's a simple HTML page to interact with the server:
 </head>
 <body>
   <h1>SSE Demo</h1>
-  <div id="greeting-area">Greeting: <button onclick="sse('/messages')">Get Greeting</button></div>
-  <div id="clock-area">Current Time: <button onclick="sse('/clock')">Start Clock</button></div>
+  <div id="qoute" data-on-load="sse('/qoute')">Qoute: </div><button onclick="sse('/qoute')">Get New Qoute</button>
+  <div id="clock" data-on-load="sse('/clock')"></div>
 </body>
 </html>
 ```
