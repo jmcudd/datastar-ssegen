@@ -1,6 +1,6 @@
 {
   "name": "datastar-ssegen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Datastar Server-Sent Event generator",
   "author": "John Cudd",
   "type": "module",
@@ -11,7 +11,11 @@
     "express": "nodemon examples/express.example.js",
     "hyper-express": "nodemon examples/hyper-express.example.js"
   },
-  "keywords": ["datastar", "hypermedia", "sse"],
+  "keywords": [
+    "datastar",
+    "hypermedia",
+    "sse"
+  ],
   "license": "mit",
   "homepage": "https://github.com/jmcudd/datastar-ssegen#readme",
   "repository": {
