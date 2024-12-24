@@ -21,20 +21,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  publish-gpr:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          registry-url: 'https://npm.pkg.github.com'
-      - name: Authenticate to GitHub Package Registry
-        run: |
-          echo '//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}' >> ~/.npmrc
-      - name: Publish to GitHub Package Registry
-        run: npm publish --registry https://npm.pkg.github.com
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
