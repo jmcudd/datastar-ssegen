@@ -339,9 +339,7 @@ export function ServerSentEventGenerator(request, response) {
 
             // Join the result and ensure it ends with a semicolon if not empty
             const codePart = result.join("").trim();
-            return codePart && !codePart.endsWith(";")
-              ? `${codePart};`
-              : codePart;
+            return codePart;
           })
           .filter((line) => line.length > 0);
 
