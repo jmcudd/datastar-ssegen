@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 app.get("/quote", handleQuote);
 
 app.get("/readSignals", handleReadSignals);
+app.post("/readSignals", handleReadSignals);
 
 app.get("/removeTrash", handleRemoveTrash);
 

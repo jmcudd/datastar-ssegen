@@ -45,7 +45,7 @@ export const homepage = (name = "") => {
 };
 
 export const handleQuote = async (req, res) => {
-  const sse = ServerSentEventGenerator.init(req, res);
+  const sse = ServerSentEventGenerator(req, res);
   const qoutes = [
     "Any app that can be written in JavaScript, will eventually be written in JavaScript. - Jeff Atwood",
     "JavaScript is the world's most misunderstood programming language. - Douglas Crockford",
@@ -58,34 +58,37 @@ export const handleQuote = async (req, res) => {
 };
 
 export const handleReadSignals = async (req, res) => {
-  const sse = ServerSentEventGenerator.init(req, res);
+  console.log(req.method, "readSignals?");
+  const sse = ServerSentEventGenerator(req, res);
   backendStore = await sse.ReadSignals(backendStore);
   console.log("backendStore updated", backendStore);
   res.end();
 };
 
 export const handleRemoveTrash = async (req, res) => {
-  const sse = ServerSentEventGenerator.init(req, res);
+  const sse = ServerSentEventGenerator(req, res);
   await sse.RemoveFragments("#trash");
   await sse.MergeSignals({ lastUpdate: Date.now() });
   res.end();
 };
 
 export const handleExecuteScript = async (req, res) => {
-  const sse = ServerSentEventGenerator.init(req, res);
-  await sse.ExecuteScript(`console.log("Hello from the backend!")`);
+  const sse = ServerSentEventGenerator(req, res);
+  await sse.ExecuteScript(`console.log("Hello from the backend!"); //My comment
+  //What avbout this?
+  console.log('second consolelog on new line');`);
   await sse.MergeSignals({ lastUpdate: Date.now() });
   res.end();
 };
 
 export const handleClock = async function (req, res) {
-  const sse = ServerSentEventGenerator.init(req, res);
+  const sse = ServerSentEventGenerator(req, res);
   setInterval(async () => {
     await sse.MergeFragments(`<div id="clock">${new Date()}</div>`);
   }, 1000);
 };
 
 export const handleRemoveSignal = async (req, res) => {
-  const sse = ServerSentEventGenerator.init(req, res);
+  const sse = ServerSentEventGenerator(req, res);
   await sse.RemoveSignals(["xyz"]);
 };

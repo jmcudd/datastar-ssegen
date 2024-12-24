@@ -34,7 +34,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/qoute', (req,res)=> {
-const sse = ServerSentEventGenerator.init(req, res);
+  const sse = ServerSentEventGenerator(req, res);
   const qoutes = [
     "Any app that can be written in JavaScript, will eventually be written in JavaScript. - Jeff Atwood",
     "JavaScript is the world's most misunderstood programming language. - Douglas Crockford",
@@ -46,7 +46,7 @@ const sse = ServerSentEventGenerator.init(req, res);
   res.end();
 });
 app.get('/clock', (req, res)=> {
-  const sse = ServerSentEventGenerator.init(req, res);
+  const sse = ServerSentEventGenerator(req, res);
   setInterval(async () => {
     await sse.MergeFragments(`<div id="clock">Current Time: ${new Date()}</div>`);
   }, 1000);
@@ -84,7 +84,7 @@ Here's a simple HTML page to interact with the server:
 
 The `ServerSentEventGenerator` provides several functions to facilitate communication with connected Datastar clients using Server-Sent Events:
 
-- **`init(request, response)`**: Initializes SSE communication with the specified request and response.
+- **`ServerSentEventGenerator(request, response)`**: Initializes SSE communication with the specified request and response.
 
 - **`_send(eventType, dataLines, sendOptions)`**: Sends a server-sent event (SSE) to the client. Options include setting an `eventId` and defining `retryDuration`.
 

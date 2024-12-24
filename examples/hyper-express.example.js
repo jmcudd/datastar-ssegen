@@ -22,6 +22,7 @@ server.get("/", (req, res) => {
 server.get("/quote", handleQuote);
 
 server.get("/readSignals", handleReadSignals);
+server.post("/readSignals", handleReadSignals);
 
 server.get("/removeTrash", handleRemoveTrash);
 
