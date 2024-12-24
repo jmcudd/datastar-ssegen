@@ -1,4 +1,3 @@
-# publish to npm
 name: Publish Package
 on:
   push:
@@ -8,12 +7,12 @@ on:
     types:
       - created
 jobs:
-  publish:
+  publish-npm:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup Node.js environment
+      - name: Setup Node.js environment for npm
         uses: actions/setup-node@v3
         with:
           node-version: '18'
