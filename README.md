@@ -86,8 +86,6 @@ The `ServerSentEventGenerator` provides several functions to facilitate communic
 
 - **`ServerSentEventGenerator(request, response)`**: Initializes SSE communication with the specified request and response.
 
-- **`_send(eventType, dataLines, sendOptions)`**: Sends a server-sent event (SSE) to the client. Options include setting an `eventId` and defining `retryDuration`.
-
 - **`ReadSignals(signals)`**: Reads and merges signals based on HTTP methods with predefined signals, useful for parsing query or body data sent to the server.
 
 - **`MergeFragments(fragments, options)`**: Sends a merge fragments event to update HTML content on the client. Options include `selector`, `mergeMode`, `settleDuration`, and `useViewTransition`.
