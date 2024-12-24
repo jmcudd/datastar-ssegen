@@ -1,6 +1,6 @@
 {
   "name": "datastar-ssegen",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Datastar Server-Sent Event generator",
   "author": "John Cudd",
   "type": "module",
