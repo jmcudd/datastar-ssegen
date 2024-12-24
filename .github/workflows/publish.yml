@@ -26,14 +26,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup Node.js environment for GitHub Package Registry
+      - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@jmcudd'
-      - name: Authenticate npm with GitHub Package Registry
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" > ~/.npmrc
+      - name: Authenticate to GitHub Package Registry
+        run: |
+          echo '//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}' >> ~/.npmrc
       - name: Publish to GitHub Package Registry
         run: npm publish --registry https://npm.pkg.github.com
         env:
