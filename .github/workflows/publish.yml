@@ -32,7 +32,9 @@ jobs:
           node-version: '18'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@jmcudd'
+      - name: Authenticate npm with GitHub Package Registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" > ~/.npmrc
       - name: Publish to GitHub Package Registry
-        run: npm publish
+        run: npm publish --registry https://npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
