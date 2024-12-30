@@ -81,7 +81,7 @@ export function ServerSentEventGenerator(request, response) {
   const generatorMethods = {
     headersSent: false,
     headers: {
-      "Cache-Control": "nocache",
+      "Cache-Control": "no-cache",
       Connnection: "keep-alive",
       "Content-Type": "text/event-stream",
     },
