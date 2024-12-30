@@ -7,10 +7,11 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "dev": "concurrently -c \"red,green,blue\" -n \"node,express,hyper-express\" \"npm run node\" \"npm run express\" \"npm run hyper-express\"",
+    "dev": "concurrently -c \"red,green,blue,cyan\" -n \"node,express,hyper-express,bun\" \"npm run node\" \"npm run express\" \"npm run hyper-express\" \"npm run bun\"",
     "node": "nodemon examples/node.example.js",
     "express": "nodemon examples/express.example.js",
     "hyper-express": "nodemon examples/hyper-express.example.js",
+    "bun": "bun examples/bun.example.js",
     "check-types": "tsc --project ./jsconfig.json"
   },
   "keywords": [

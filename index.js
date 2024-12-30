@@ -80,6 +80,11 @@ import querystring from "querystring";
 export function ServerSentEventGenerator(request, response) {
   const generatorMethods = {
     headersSent: false,
+    headers: {
+      "Cache-Control": "nocache",
+      Connnection: "keep-alive",
+      "Content-Type": "text/event-stream",
+    },
     req: request,
     res: response,
     /**
@@ -112,12 +117,17 @@ export function ServerSentEventGenerator(request, response) {
 
       //Send Event
       if (!this.headersSent) {
-        this.res?.setHeader("Cache-Control", "nocache");
-        this.res?.setHeader("Connection", "keep-alive");
-        this.res?.setHeader("Content-Type", "text/event-stream");
+        if (!process?.isBun) {
+          Object.keys(this.headers).forEach((key) => {
+            this.res?.setHeader(key, this.headers[key]);
+          });
+        }
         this.headersSent = true;
       }
-      this.res.write(eventString);
+
+      if (this.res?.write) {
+        this.res.write(eventString);
+      }
 
       return eventString;
     },
