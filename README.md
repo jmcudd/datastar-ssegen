@@ -5,7 +5,7 @@
 
 ## Overview
 
-The `datastar-ssegen` is a backend JavaScript module designed to generate Server-Sent Events (SSE) for connected [Datastar](https://data-star.dev/) clients. It supports popular server frameworks such as Express.js, Node.js, and Hyper Express.js, and Bun.
+The `datastar-ssegen` is a backend JavaScript module designed to generate Server-Sent Events (SSE) for connected [Datastar](https://data-star.dev/) clients. It supports popular server frameworks such as Express.js, Node.js, and Hyper Express.js, and Bun and Elysia.
 
 This package is engineered to integrate tightly with request and response objects of these backend frameworks, enabling efficient and reactive web application development.
 
@@ -81,9 +81,43 @@ Here's a simple HTML page to interact with the server:
 ```
 
 
+### Quick Start Example with Elysia
+
+```javascript
+import { Elysia } from "elysia";
+import { html } from "@elysiajs/html";
+import { ServerSentEventGenerator } from "datastar-ssegen";
+
+const app = new Elysia()
+  .use(html())
+  .get(
+    "/",
+    () =>
+      `<html>
+      <head>
+        <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js"></script>
+      </head>
+      <body data-on-load="sse('/feed')">
+        <div id="hello">???</div>
+      </body>
+      </html>`
+  )
+  .get("/feed", function* ({ request, set }) {
+    const sse = ServerSentEventGenerator(request);
+    set.headers = sse.headers;
+    yield sse.MergeFragments(`<div id="hello">Hello!</div>`);
+  })
+
+  .listen(3000);
+
+console.log(
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+);
+```
+
 ### Quick Start Example with Bun 
 
-Using this with Bun requires you to create the response. Below is an example of how to integrate the datastar-ssegen with a Stream.:
+Using this with Bun requires you to create the response. Below is an example of how to integrate the datastar-ssegen with a Stream:
 
 ```javascript
 import { ServerSentEventGenerator } from "../index.js";
