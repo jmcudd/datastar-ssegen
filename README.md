@@ -5,7 +5,7 @@
 
 ## Overview
 
-The `datastar-ssegen` is a backend JavaScript module designed to generate Server-Sent Events (SSE) for connected [Datastar](https://data-star.dev/) clients. It supports popular server frameworks such as Express.js, Node.js, and Hyper Express.js, and Bun and Elysia.
+The `datastar-ssegen` is a backend JavaScript module designed to generate Server-Sent Events (SSE) for connected [Datastar](https://data-star.dev/) (v1.0.0-beta.1) clients. It supports popular server frameworks such as Express.js, Node.js, and Hyper Express.js, and Bun and Elysia.
 
 This package is engineered to integrate tightly with request and response objects of these backend frameworks, enabling efficient and reactive web application development.
 
@@ -69,13 +69,13 @@ Here's a simple HTML page to interact with the server:
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.1/bundles/datastar.js"></script>
   <title>SSE Example</title>
 </head>
 <body>
   <h1>SSE Demo</h1>
-  <div id="qoute" data-on-load="sse('/qoute')">Qoute: </div><button onclick="sse('/qoute')">Get New Qoute</button>
-  <div id="clock" data-on-load="sse('/clock')"></div>
+  <div id="qoute" data-on-load="@get('/qoute')">Qoute: </div><button onclick="@get('/qoute')">Get New Qoute</button>
+  <div id="clock" data-on-load="@get('/clock')"></div>
 </body>
 </html>
 ```
@@ -95,9 +95,9 @@ const app = new Elysia()
     () =>
       `<html>
       <head>
-        <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.1/bundles/datastar.js"></script>
       </head>
-      <body data-on-load="sse('/feed')">
+      <body data-on-load="@get('/feed')">
         <div id="hello">???</div>
       </body>
       </html>`
@@ -133,9 +133,9 @@ Bun.serve({
         `<html>
           <head>
             <title>Example Bun</title>
-            <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js"></script>
+            <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.1/bundles/datastar.js"></script>
           </head>
-          <body data-signals="{time:''}" data-on-load="sse('/feed')">
+          <body data-signals="{time:''}" data-on-load="@get('/feed')">
             <div data-text="time.value"></div>
           </body>
           </html>`,

@@ -11,9 +11,9 @@ Bun.serve({
         `<html>
           <head>
             <title>Example Bun</title>
-            <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js"></script>
+            <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.1/bundles/datastar.js"></script>
           </head>
-          <body data-signals="{time:''}" data-on-load="sse('/feed')">
+          <body data-signals="{time:''}" data-on-load="@get('/feed')">
             <div data-text="time.value"></div>
           </body>
           </html>`,
