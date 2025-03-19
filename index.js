@@ -2,81 +2,6 @@
 import url from "url";
 import querystring from "querystring";
 
-/**
- * @typedef {object} ServerSentEventMethods
- * @property {Function} _send - Sends a server-sent event.
- * @property {Function} ReadSignals - Reads signals based on HTTP methods and merges them with predefined signals.
- * @property {Function} MergeFragments - Sends a merge fragments event with specified options.
- * @property {Function} RemoveFragments - Sends a remove fragments event.
- * @property {Function} MergeSignals - Sends a merge signals event, with merging options.
- * @property {Function} RemoveSignals - Sends a remove signals event, requires signal paths.
- * @property {Function} ExecuteScript - Executes a defined script on the client-side.
- */
-
-/**
- * @typedef {object} SendOptions
- * @property {number|null} [eventId] - The ID of the event.
- * @property {number|null} [retryDuration] - Duration in milliseconds to wait before attempting a retry.
- */
-
-/**
- * @typedef {object} MergeFragmentsOptions
- * @property {string|null} [selector] - CSS selector to scope the merge action.
- * @property {string} [mergeMode=morph] - Mode to use for merging fragments.
- * @property {number} [settleDuration=300] - Duration for settling the merge.
- * @property {boolean|null} [useViewTransition] - Use CSS view transitions if supported.
- * @property {number|null} [eventId] - Event ID for the merge fragments event.
- * @property {number|null} [retryDuration] - Retry duration for the event.
- */
-
-/**
- * @typedef {object} RemoveFragmentsOptions
- * @property {number} [settleDuration] - Duration for settling the removal.
- * @property {boolean|null} [useViewTransition] - Use CSS view transitions if supported.
- * @property {number|null} [eventId] - Event ID for the remove fragments event.
- * @property {number|null} [retryDuration] - Retry duration for the event.
- */
-
-/**
- * @typedef {object} MergeSignalsOptions
- * @property {boolean} [onlyIfMissing=false] - Merge only if the signal is missing.
- * @property {number|null} [eventId] - Event ID for the merge signals event.
- * @property {number|null} [retryDuration] - Retry duration for the event.
- */
-
-/**
- * @typedef {object} ExecuteScriptOptions
- * @property {boolean|null} [autoRemove] - Automatically remove the script after execution.
- * @property {number|null} [eventId] - Event ID for the execute script event.
- * @property {number|null} [retryDuration] - Retry duration for the event.
- */
-
-/**
- * @typedef {Object} HttpRequest
- * @property {string} method - The HTTP method, e.g., 'GET', 'POST', etc.
- * @property {string} url - The URL of the request.
- * @property {Object.<string, string>} headers - The HTTP headers.
- * @property {Object} [body] - The payload of the request.
- * @property {Function} [json] - Parses the request body
- * @property {Function} [on] - Adds event handlers to the request
- */
-
-/**
- * @typedef {Object} HttpResponse
- * @property {number} statusCode - The HTTP status code, e.g., 200, 404, etc.
- * @property {Object.<string, string>} headers - The HTTP headers.
- * @property {Object|string} [body] - The response body.
- * @property {Function} setHeader - Sets a header on the response
- * @property {Function} write - Writes to the response body
- */
-
-/**
- * Initializes the server-sent event generator.
- *
- * @param {HttpRequest} request - The request object.
- * @param {HttpResponse} response - The response object.
- * @returns {ServerSentEventMethods} Methods for manipulating server-sent events.
- */
 export function ServerSentEventGenerator(request, response) {
   const generatorMethods = {
     headersSent: false,
@@ -193,6 +118,8 @@ export function ServerSentEventGenerator(request, response) {
       let dataLines = [];
       if (options?.selector != null)
         dataLines.push(`selector ${options.selector}`);
+      if (options?.mergeMode != null)
+        dataLines.push(`mergeMode ${options.mergeMode}`);
       if (options?.settleDuration != null)
         dataLines.push(`settleDuration ${options.settleDuration}`);
       if (options?.useViewTransition != null)

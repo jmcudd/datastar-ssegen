@@ -1,4 +1,6 @@
 import { ServerSentEventGenerator } from "../index.js";
+import { datastarVersion } from "../datastarVersion.js";
+
 const PORT = 3103;
 console.log(`Bun server http://localhost:${PORT}`);
 Bun.serve({
@@ -11,10 +13,10 @@ Bun.serve({
         `<html>
           <head>
             <title>Example Bun</title>
-            <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js"></script>
+            <script type="module" src="${datastarVersion}"></script>
           </head>
-          <body data-signals="{time:''}" data-on-load="sse('/feed')">
-            <div data-text="time.value"></div>
+          <body data-signals="{time:''}" data-on-load="@get('/feed')">
+            <div data-text="$time"></div>
           </body>
           </html>`,
         {

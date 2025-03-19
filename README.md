@@ -9,6 +9,8 @@ The `datastar-ssegen` is a backend JavaScript module designed to generate Server
 
 This package is engineered to integrate tightly with request and response objects of these backend frameworks, enabling efficient and reactive web application development.
 
+Tested with datastar `v1.0.0-beta.9`.
+
 ### Key Features
 
 - Real-time updates with Server-Sent Events tailored for Datastar clients
