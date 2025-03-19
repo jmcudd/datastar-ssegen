@@ -5,11 +5,11 @@
 
 ## Overview
 
-The `datastar-ssegen` is a backend JavaScript module designed to generate Server-Sent Events (SSE) for connected [Datastar](https://data-star.dev/) (v1.0.0-beta.1) clients. It supports popular server frameworks such as Express.js, Node.js, and Hyper Express.js, and Bun and Elysia.
+The `datastar-ssegen` is a backend JavaScript module designed to generate Server-Sent Events (SSE) for connected [Datastar](https://data-star.dev/) `(v1.0.0-beta.9)` clients. It supports popular server frameworks such as Express.js, Node.js, and Hyper Express.js, and Bun and Elysia.
 
 This package is engineered to integrate tightly with request and response objects of these backend frameworks, enabling efficient and reactive web application development.
 
-Tested with datastar `v1.0.0-beta.9`.
+Tested with `datastar v1.0.0-beta.9`.
 
 ### Key Features
 
